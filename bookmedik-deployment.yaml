@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: contenedor-bookmedik
-        image: dparrales/bookmedik:v1
+        image: dparrales/bookmedik:v1_1
         env:
           - name: USUARIO_BOOKMEDIK
             valueFrom:
