@@ -20,7 +20,23 @@ spec:
       initContainers:
       - name: init-db
         image: mariadb
-        command: ['sh', '-c', "until mysql -u root -e 'use mydbname'; do echo esperando a la base de datos; sleep 2; done"]
+        env:
+          - name: NOMBRE_DB
+            valueFrom:
+              configMapKeyRef:
+                name: cm-mariadb
+                key: basededatos
+          - name: USUARIO_BOOKMEDIK
+            valueFrom:
+              configMapKeyRef:
+                name: cm-mariadb
+                key: mysql_usuario
+          - name: CONTRA_BOOKMEDIK
+            valueFrom:
+              secretKeyRef:
+                name: secret-mariadb
+                key: password
+        command: ['sh', '-c', "until mysql -u $USUARIO_BOOKMEDIK -p$CONTRA_BOOKMEDIK -e 'use '$NOMBRE_DB''; do echo esperando a la base de datos; sleep 2; done"]
       containers:
       - name: contenedor-bookmedik
         image: dparrales/bookmedik:v1_1
