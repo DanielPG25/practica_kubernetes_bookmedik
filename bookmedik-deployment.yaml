@@ -17,6 +17,10 @@ spec:
         app: bookmedik
         tier: frontend
     spec:
+      initContainers:
+      - name: init-db
+        image: mariadb
+        command: ['sh', '-c', "until mysql -u root -e 'use mydbname'; do echo esperando a la base de datos; sleep 2; done"]
       containers:
       - name: contenedor-bookmedik
         image: dparrales/bookmedik:v1_1
