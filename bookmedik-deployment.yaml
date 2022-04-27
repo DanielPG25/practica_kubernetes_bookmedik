@@ -36,7 +36,7 @@ spec:
               secretKeyRef:
                 name: secret-mariadb
                 key: password
-        command: ['sh', '-c', "until mysql -u $USUARIO_BOOKMEDIK -p$CONTRA_BOOKMEDIK -e 'use '$NOMBRE_DB''; do echo esperando a la base de datos; sleep 2; done"]
+        command: ['sh', '-c', "until mysql -u $USUARIO_BOOKMEDIK -p$CONTRA_BOOKMEDIK -h DATABASE_HOST $-e 'use '$NOMBRE_DB''; do echo esperando a la base de datos; sleep 2; done"]
       containers:
       - name: contenedor-bookmedik
         image: dparrales/bookmedik:v1_1
